@@ -90,6 +90,15 @@ def main():
     plot_radial_tree(parent, generation, sampled_pc1, radial_path)
     print(f"Wrote {radial_path}")
 
+    nodes_path = output_dir / "pc1_by_node.csv"
+    with nodes_path.open("w", encoding="utf-8", newline="") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(("node", "parent", "generation", "sampled_pc1"))
+        for node, value in enumerate(sampled_pc1):
+            parent_id = "" if node == 0 else int(parent[node - 1])
+            writer.writerow((node, parent_id, int(generation[node]), float(value)))
+    print(f"Wrote {nodes_path}")
+
 def plot_radial_tree(parent, generation, pc1, output_path):
     # Put each generation on its own ring. Align each parent
     # with the centre of the angular sector occupied by its descendants.

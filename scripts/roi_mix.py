@@ -65,6 +65,22 @@ def main():
     output_dir = ROOT / "outputs" / "roi_mix"
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    table_path = output_dir / "roi_mix_summary.csv"
+    with table_path.open("w", encoding="utf-8", newline="") as stream:
+        writer = csv.writer(stream)
+        writer.writerow((
+            "buffer", "level", "simulation_mean_ratio", "simulation_sd_ratio",
+            "repetitions", "exact_ratio",
+        ))
+        for index, buffer in enumerate(BUFFERS):
+            for level in range(1, ROI_DEPTH + 1):
+                values = np.asarray(ratios[buffer, level])
+                writer.writerow((
+                    buffer, level, values.mean(), values.std(ddof=1),
+                    values.size, exact[index, level - 1],
+                ))
+    print(f"Wrote {table_path}")
+
     fig, ax = plt.subplots(figsize=(8, 4.5))
     for level in range(1, ROI_DEPTH + 1):
         samples = np.array([ratios[b, level] for b in BUFFERS])

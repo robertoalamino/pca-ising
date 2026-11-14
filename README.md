@@ -40,8 +40,43 @@ multiple commands, run them in the order shown.
 | Figure 8 | Temperature dependence of PC1 overlap, relative spectral gap, and mean absolute magnetisation on both geometries. | `python scripts/temperature_sweep.py --full-lattice`<br>`python scripts/temperature_sweep.py --full-tree`<br>`python scripts/plot_temperature_sweep.py` |
 
 The stochastic workflows generate fresh samples using fixed seeds.
-For Figure 3, the overlap decreases with tree size, but the largest
-trees give higher sampled overlaps than those shown in the paper.
-For Figure 6, the script reconstructs the simulation points from
-the included profiles; it does not rerun the simulations that
-generated those profiles.
+
+**Figure 3 — Cayley tree size sweep.** The reproduction shows the
+same decline in PC1 overlap with tree size as the paper, but the
+decline is smaller. At 2,047 sites, the reproduced overlap is
+0.870 ± 0.006 (mean ± one standard deviation across 20 runs),
+compared with approximately 0.61 as read from the paper figure.
+The exact population overlap at this size is 0.906.
+
+The reproduction uses 500 independent equilibrium configurations
+per run. A smaller effective sample size in the original sweep
+could make the estimated PC1 less stable, leading to lower overlaps
+and greater variation across runs. The original sampling and PCA
+settings have not been verified, so this remains a possible
+explanation.
+
+**Figure 6 — Mixed region-of-interest comparison.** The script
+reconstructs the simulation points from the included profiles and
+recalculates the exact curves. It does not rerun the simulations
+that generated those profiles.
+
+## Included files and generated outputs
+
+- `scripts/` contains the simulation, analysis, and plotting code
+  referenced in the figure table above.
+- `requirements.txt` records the Python dependencies used by the scripts.
+- `data/roi/df_profiles.csv` contains archived PC1 summaries by tree
+  generation, buffer size, and simulation repetition. It is included
+  because the Figure 6 workflow uses these summaries to reconstruct
+  the simulation markers and error bars. The script divides each
+  generation mean by the root value from the same run and recalculates
+  the exact curves independently.
+- `.gitignore` keeps local virtual environments, Python caches, and
+  generated outputs out of Git.
+
+The figure commands generate plots and numerical data under `outputs/`.
+In particular, the workflow for Figures 4 and 5 exports
+`outputs/cayley_tree_pc1/pc1_by_node.csv` for the radial map and
+`outputs/cayley_tree_pc1/pc1_by_generation.csv` for the generation
+profile. The Figure 6 workflow exports the plotted statistics to
+`outputs/roi_mix/roi_mix_summary.csv`.
