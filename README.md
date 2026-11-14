@@ -23,6 +23,9 @@ python -m pip install -r requirements.txt
 On Linux or macOS, use `python3.15 -m venv .venv` and
 `source .venv/bin/activate`, then run the same installation command.
 
+See [Simulation and analysis algorithms](docs/algorithms.md) for the
+samplers, covariance estimators, and plotted observables.
+
 ## Reproduce the analyses
 
 Run the commands from the repository root with the virtual environment
