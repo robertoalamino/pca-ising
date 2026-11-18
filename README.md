@@ -26,7 +26,9 @@ On Linux or macOS, use `python3.15 -m venv .venv` and
 See [Simulation and analysis algorithms](docs/algorithms.md) for the
 samplers, covariance estimators, and plotted observables.
 
-## Reproduce the analyses
+The document [Mathematical clarifications](docs/mathematical-clarifications.md) presents refinements of the work concerning the scope of the finite-tree result, a lower bound for the infinite-size argument, and notes on covariance and temperature limits which were prepared during the proof and not published together.
+
+## Reproduce the Analyses
 
 Run the commands from the repository root with the virtual environment
 active. Figure numbers refer to the paper. Where a workflow lists
@@ -34,7 +36,7 @@ multiple commands, run them in the order shown.
 
 | Paper figure | Analysis | Commands |
 | --- | --- | --- |
-| Figure 1 | PC1 overlap with the magnetisation direction as a function of periodic square-lattice size. | `python scripts/square_lattice_size_sweep.py --full`<br>`python scripts/plot_square_lattice_size_sweep.py` |
+| Figure 1 | PC1 overlap with the magnetisation direction as a function of periodic square-lattice size. The companion and the archived paper routine aggregate the log residual differently; see the [Figure 1 note](docs/algorithms.md#figure-1-square-lattice-size-sweep). | `python scripts/square_lattice_size_sweep.py --full`<br>`python scripts/plot_square_lattice_size_sweep.py` |
 | Figure 2 | Site-by-site PC1 on a periodic 20 × 20 square lattice. | `python scripts/square_lattice_pc1.py` |
 | Figure 3 | PC1 overlap as a function of Cayley tree size, with an exact covariance baseline. | `python scripts/cayley_tree_size_sweep.py --full` |
 | Figures 4 and 5 | Radial map and generation profile of PC1 on a 255-site Cayley tree. Both views use the same sampled PC1 vector. | `python scripts/cayley_tree_pc1.py` |
@@ -42,21 +44,12 @@ multiple commands, run them in the order shown.
 | Figure 7 | Extended calculation of the exact PC1 ratios for buffer sizes 1–50. | `python scripts/roi_sim.py` |
 | Figure 8 | Temperature dependence of PC1 overlap, relative spectral gap, and mean absolute magnetisation on both geometries. | `python scripts/temperature_sweep.py --full-lattice`<br>`python scripts/temperature_sweep.py --full-tree`<br>`python scripts/plot_temperature_sweep.py` |
 
-The stochastic workflows generate fresh samples using fixed seeds.
+Workflows that perform simulations generate fresh samples using fixed seeds.
 
-**Figure 3 — Cayley tree size sweep.** The reproduction shows the
-same decline in PC1 overlap with tree size as the paper, but the
-decline is smaller. At 2,047 sites, the reproduced overlap is
-0.870 ± 0.006 (mean ± one standard deviation across 20 runs),
-compared with approximately 0.61 as read from the paper figure.
-The exact population overlap at this size is 0.906.
-
-The reproduction uses 500 independent equilibrium configurations
-per run. A smaller effective sample size in the original sweep
-could make the estimated PC1 less stable, leading to lower overlaps
-and greater variation across runs. The original sampling and PCA
-settings have not been verified, so this remains a possible
-explanation.
+**Figure 3 — Cayley tree size sweep.** The companion reproduces the
+declining trend in PC1 overlap, with higher overlaps at the largest
+sizes shown. See the [Figure 3 comparison](docs/algorithms.md#figure-3-cayley-tree-size-sweep)
+for the numerical differences and the limits of the sampling explanation.
 
 **Figure 6 — Mixed region-of-interest comparison.** The script
 reconstructs the simulation points from the included profiles and
