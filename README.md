@@ -1,9 +1,12 @@
 # PCA and the ferromagnetic Ising model
 
-Code companion to Roberto C. Alamino, *When Does PCA Recover the
-Magnetisation? The Principal Component of the Ferromagnetic Ising
-Model*, accepted for publication in the *Journal of Statistical
-Mechanics: Theory and Experiment*.
+Code companion to: <br><br>
+**When Does PCA Recover the Magnetisation? The Principal Component of the Ferromagnetic Ising
+Model**<br>
+*Roberto C. Alamino<br>
+J. Stat. Mech (2026) 113405*<br>
+[DOI 10.1088/1742-5468/aec121](https://doi.org/10.1088/1742-5468/aec121)
+
 
 The paper studies when the first principal component (PC1) of Ising
 spin configurations aligns with the magnetisation direction. The code
